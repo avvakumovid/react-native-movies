@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
-import {FlatList, Text, StyleSheet, Image, View, ScrollView} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useAction} from '../../hooks/useAction';
 import GenreItem from './GenreItem';
-import img from '../../img/Thriller.png'
 
-const Genre = () => {
+const Genre = ({navigation}) => {
     const {genre, loading, error} = useSelector(state => state.movie)
     const {fetchGenre, setCurrentPage} = useAction()
     //const navigate = useNavigate()
@@ -13,6 +12,7 @@ const Genre = () => {
         fetchGenre();
         setCurrentPage()
     }, [])
+
     const icons = {
         Action: require('../../img/Action.png'),
         Adventure: require('../../img/Adventure.png'),
@@ -28,7 +28,7 @@ const Genre = () => {
         Music: require('../../img/Music.png'),
         Mystery: require('../../img/Mystery.png'),
         Romance: require('../../img/Romance.png'),
-        "Science Fiction": require('../../img/ScienceFiction.png'),
+        Science: require('../../img/Science.png'),
         Thriller: require('../../img/Thriller.png'),
         War: require('../../img/War.png'),
         Western: require('../../img/Western.png'),
@@ -40,21 +40,29 @@ const Genre = () => {
             color: 'red',
         },
         logo: {
-            width: 200,
-            height: 200
+            width: 300,
+            height: 300
         }
 
     })
     const renderItem = ({item}) => (
         <GenreItem img={item.img} text={item.name}/>
     );
-    const genres = genre.map(item => <View key={item.id} style={{backgroundColor: 'lightgreen'}}><Text>{item.name}</Text>
+    const genres = genre.map(item => <TouchableOpacity key={item.id}
+                                           style={{backgroundColor: '#1c2228', alignItems: 'center', marginBottom: 30}}
+                                           onPress={() => navigation.navigate('Detail', {
+                                               name: item.name,
+                                               id: item.id,
+                                           })}>
         <Image
             style={styles.logo}
             source={
                 icons[item.name]
-            }/>
-    </View>)
+            }
+        />
+        <Text style={{color: 'white', fontSize: 30}} >{item.name}</Text>
+    </TouchableOpacity>)
+    // const genres = genre.map(item => <GenreItem name={item.name} id={item.id}/>)
     if (loading) {
         return (
             <Text>
@@ -66,10 +74,26 @@ const Genre = () => {
         return <Text>{error}</Text>
     }
     return (
-        <ScrollView style={{flex: 1}}>
-            {genres}
+        <ScrollView>
+            <View style={{
+                paddingTop: 40,
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                backgroundColor: '#1c2228'
+            }}>
+                {/*<View style={{*/}
+                {/*    backgroundColor: 'purple', width: 100,*/}
+                {/*    height: 100,*/}
+                {/*    margin: 4,*/}
+                {/*}}></View>*/}
+                {genres}
+            </View>
+            {/*<View style={{backgroundColor: 'blue', flex: 3}}></View>*/}
         </ScrollView>
-    );
+    )
+        ;
 };
 
 export default Genre;

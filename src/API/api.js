@@ -24,7 +24,7 @@ export class Api {
 
     static async Login(username, password) {
         try {
-            const response = await axios.post('https://avvakumov-movies-backend.herokuapp.com/auth/login', {
+            const response = await axios.post('http://localhost:5000/auth/login', {
                 username,
                 password
             })
@@ -36,7 +36,7 @@ export class Api {
 
     static async Auth() {
         try {
-            const response = await axios.get('https://avvakumov-movies-backend.herokuapp.com/auth/auth', {
+            const response = await axios.get('http://localhost:5000/auth/auth', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
@@ -49,7 +49,7 @@ export class Api {
 
     static async Registartion(username, password) {
         try {
-            const response = await axios.post('https://avvakumov-movies-backend.herokuapp.com/auth/registration', {
+            const response = await axios.post('http://localhost:5000/auth/registration', {
                 username,
                 password
             })
@@ -61,7 +61,7 @@ export class Api {
 
     static async FetchWatchList(token){
         try {
-            const response = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/usermovie',
+            const response = await axios.get('http://localhost:5000/api/usermovie',
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -78,7 +78,7 @@ export class Api {
         if(!userId){
             return 'Пользователь не найден'
         }
-        let response = await axios.post('https://avvakumov-movies-backend.herokuapp.com/api/user/watchlist', {
+        let response = await axios.post('http://localhost:5000/api/user/watchlist', {
             userId,
             movieId
         })
@@ -90,7 +90,7 @@ export class Api {
         if(!userId){
             return 'Пользователь не найден'
         }
-        let response = await axios.delete(`https://avvakumov-movies-backend.herokuapp.com/api/user/delete?userId=${userId}&movieId=${movieId}`)
+        let response = await axios.delete(`http://localhost:5000/api/user/delete?userId=${userId}&movieId=${movieId}`)
         return response
     }
 }

@@ -14,6 +14,7 @@ export const fetchGenre = () => {
     return async (dispatch) => {
         try {
             dispatch({type: LOAD})
+            // let genres = await axios.get('http://localhost:5000/api/genres')
             let genres = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/genres')
             dispatch({type: FETCH_GENRE_SUCCESS, payload: genres.data})
         } catch (e) {
@@ -26,7 +27,7 @@ export const fetchMoviesByGenreId = (page , id) => {
     return async (dispatch) => {
         try {
             dispatch({type: LOAD})
-            let movies = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/movies', {
+            let movies = await axios.get('http://localhost:5000/api/movies', {
                 params: {
                     page: page,
                     genreId: id
@@ -54,7 +55,7 @@ export const fetchMovieById = (id) => {
                 return
             }
             dispatch({type: LOAD})
-            let movie = await axios.get(`https://avvakumov-movies-backend.herokuapp.com/api/movie/${id}`)
+            let movie = await axios.get(`http://localhost:5000/api/movie/${id}`)
             let treilerId = await Api.FetchMovieTrailer(movie.data.id)
             let payload = {...movie.data, treilerId: treilerId}
             dispatch({type: FETCH_MOVIE_BY_ID, payload: payload})
