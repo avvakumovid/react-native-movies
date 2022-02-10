@@ -1,8 +1,6 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {store} from './src/store/store'
 import {Provider} from 'react-redux';
-import Test from './src/components/test';
-import {Text} from 'react-native';
 import Genre from './src/components/Genre/Genre';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';

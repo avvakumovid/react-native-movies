@@ -31,6 +31,13 @@ const MovieListItem = (
             width: 250,
             textAlign: 'center'
         },
+        image: {
+            width: 250,
+            height: 375,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            marginBottom: 10
+        }
     })
 
     const ratingColor = getRatingColor(voteAverage)
@@ -42,16 +49,8 @@ const MovieListItem = (
                     id: _id,
                 })
             }>
-            {/*<img style={img} alt={title} src={src}/>*/}
             <Image
-                style={{
-                    width: 250,
-                    height: 375,
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                    marginBottom: 10
-                }
-                }
+                style={style.image}
                 source={
                     {uri: src}
                 }/>
