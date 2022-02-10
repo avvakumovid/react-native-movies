@@ -8,6 +8,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Detail from './src/components/Detail/Detail';
 import React from 'react';
+import MovieList from './src/components/MovieList/MovieList';
 
 export default function App() {
     const Stack = createNativeStackNavigator()
@@ -25,15 +26,11 @@ export default function App() {
     return (
         <NavigationContainer>
             <Provider store={store}>
-                {/*<Genre/>*/}
-                {/*<Text>asd</Text>*/}
                 <Stack.Navigator screenOptions={{
                     headerStyle: {backgroundColor: '#1c2228', borderBottomWidth: 0},
                     headerTitleStyle: {color: 'white'},
                     headerTitleAlign: 'center',
                     headerTintColor: 'white', gestureDirection: 'vertical'
-
-
                 }}>
                     <Stack.Screen
                         name="Genre"
@@ -44,6 +41,10 @@ export default function App() {
                         name="Detail"
                         component={Detail}
                         options={{title: 'Detail', }}/>
+                    <Stack.Screen
+                        name="MovieList"
+                        component={MovieList}
+                        options={{title: 'MovieList', }}/>
                 </Stack.Navigator>
             </Provider>
         </NavigationContainer>

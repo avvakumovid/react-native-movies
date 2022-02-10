@@ -50,8 +50,7 @@ const Genre = ({navigation}) => {
     );
     const genres = genre.map(item => <TouchableOpacity key={item.id}
                                            style={{backgroundColor: '#1c2228', alignItems: 'center', marginBottom: 30}}
-                                           onPress={() => navigation.navigate('Detail', {
-                                               name: item.name,
+                                           onPress={() => navigation.navigate('MovieList', {
                                                id: item.id,
                                            })}>
         <Image
