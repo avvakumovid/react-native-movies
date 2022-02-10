@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, View, ActivityIndicator, StyleSheet} from 'react-native';
 import {useAction} from '../../hooks/useAction';
 import {useSelector} from 'react-redux';
 import MovieListItem from './MovieListItem';
@@ -37,15 +37,27 @@ const MovieList = ({route, navigation}) => {
         })
     }
 
+    const styles = StyleSheet.create({
+        main: {
+            paddingTop: 40,
+            paddingBottom: 20,
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            backgroundColor: '#1c2228'
+        }
+    })
+
     if (loading) {
         return (
-            <View>
-                <Text>Загрузка</Text>
+            <View style={styles.main}>
+                <ActivityIndicator size="large" color="#91c8f6"/>
             </View>)
     }
     if (error) {
         return (
-            <View>
+            <View style={styles.main}>
                 <Text>{error}</Text>
             </View>)
     }
@@ -59,23 +71,22 @@ const MovieList = ({route, navigation}) => {
         <ScrollView
             onScroll={({nativeEvent}) => {
                 if (isCloseToBottom(nativeEvent)) {
-                    const p = page;
-                    setPage(p + 1)
-                    addMoviesByGenreId(p + 1,genreId)
+                    const nextPage = page + 1;
+                    console.log(nextPage)
+                    if (totalPages >= nextPage) {
+                        setPage(nextPage)
+                        addMoviesByGenreId(nextPage, genreId)
+                    } else {
+                        fetchMoviesByGenreId(1, genreId)
+                    }
+
                 }
             }}
             scrollEventThrottle={400}
         >
-            <View style={{
-                paddingTop: 40,
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column',
-                backgroundColor: '#1c2228'
-            }}>
+            <View style={styles.main}>
                 {movieList()}
-                {adding && <Text>Загрузка</Text>}
+                {adding && <ActivityIndicator size="large" color="#91c8f6"/>}
             </View>
         </ScrollView>
     );
