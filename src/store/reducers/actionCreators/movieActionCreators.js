@@ -9,6 +9,8 @@ const FETCH_MOVIE_BY_ID = 'FETCH_MOVIE_BY_ID'
 const FETCH_MOVIE_TREILER_ID = 'FETCH_MOVIE_TREILER_ID'
 const RESET_MOVIE = 'RESET_MOVIE'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const ADD_MOVIES_BY_GENRE = 'ADD_MOVIES_BY_GENRE'
+const ADDING = 'ADDING'
 
 export const fetchGenre = () => {
     return async (dispatch) => {
@@ -35,6 +37,29 @@ export const fetchMoviesByGenreId = (page , id) => {
             })
             dispatch({
                 type: FETCH_MOVIES_BY_GENRE,
+                payload: {
+                    movies: movies.data.movies,
+                    tottalPages: movies.data.totalPage,
+                    itemInPage: movies.data.itemInPage,
+                }
+            })
+        } catch (e) {
+            dispatch({type: FETCH_GENRE_ERROR, payload: 'Ошибка при загруке жанров'})
+        }
+    }
+}
+export const addMoviesByGenreId = (page , id) => {
+    return async (dispatch) => {
+        try {
+            dispatch({type: ADDING})
+            let movies = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/movies', {
+                params: {
+                    page: page,
+                    genreId: id
+                }
+            })
+            dispatch({
+                type: ADD_MOVIES_BY_GENRE,
                 payload: {
                     movies: movies.data.movies,
                     tottalPages: movies.data.totalPage,

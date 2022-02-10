@@ -1,5 +1,6 @@
 import React from 'react';
 import {Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {getRatingColor} from '../../services/RitingColor/ratingColor';
 
 
 const MovieListItem = (
@@ -29,8 +30,10 @@ const MovieListItem = (
             marginBottom: 10,
             width: 250,
             textAlign: 'center'
-        }
+        },
     })
+
+    const ratingColor = getRatingColor(voteAverage)
     return (
         <TouchableOpacity
             style={style.item}
@@ -53,7 +56,7 @@ const MovieListItem = (
                     {uri: src}
                 }/>
             <Text style={style.text}>{title}</Text>
-            <Text style={style.text}>Rating: {voteAverage}</Text>
+            <Text style={{...style.text, color: ratingColor}}>Rating: {voteAverage}</Text>
         </TouchableOpacity>
     );
 };

@@ -15,15 +15,17 @@ const MovieList = ({route, navigation}) => {
         itemInPage,
         loading,
         error,
-        currentPage
+        currentPage,
+        adding
     } = useSelector(state => state.movie)
-    const {fetchMoviesByGenreId, setCurrentPage} = useAction()
+    const {fetchMoviesByGenreId, setCurrentPage, addMoviesByGenreId} = useAction()
     const [genreId, setGenreId] = useState(parseInt(id))
     const [text, setText] = useState('Start')
     const [page, setPage] = useState(1)
+    const [list, setList] = useState(movies)
     useEffect(() => {
         fetchMoviesByGenreId(page, genreId)
-    }, [page])
+    }, [])
     const movieList = () => {
         return movies.map(m => {
             let src = 'https://image.tmdb.org/t/p/w500/' + m.poster_path
@@ -57,7 +59,9 @@ const MovieList = ({route, navigation}) => {
         <ScrollView
             onScroll={({nativeEvent}) => {
                 if (isCloseToBottom(nativeEvent)) {
-                    setPage(page + 1)
+                    const p = page;
+                    setPage(p + 1)
+                    addMoviesByGenreId(p + 1,genreId)
                 }
             }}
             scrollEventThrottle={400}
@@ -71,6 +75,7 @@ const MovieList = ({route, navigation}) => {
                 backgroundColor: '#1c2228'
             }}>
                 {movieList()}
+                {adding && <Text>Загрузка</Text>}
             </View>
         </ScrollView>
     );
