@@ -1,18 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, Image} from 'react-native';
+import {ActivityIndicator, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useAction} from '../../hooks/useAction';
 import {useSelector} from 'react-redux';
+import {getRatingColor} from '../../services/RitingColor/ratingColor';
 
-// const Detail = ({route, navigation}) => {
-//     const {name, id} = route.params;
-//     return (
-//         <View>
-//             <Text>{name}{id}</Text>
-//         </View>
-//     );
-// };
 
-// export default Detail;
 
 const Detail = ({route, navigation}) => {
     let {id} = route.params;
@@ -32,44 +24,70 @@ const Detail = ({route, navigation}) => {
             setSrc(`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`)
         }
     }, [movie])
+    const ratingColor = getRatingColor(movie?.vote_average)
+    const styles = StyleSheet.create({
+        main: {
+            padding: 40,
+            flex: 1,
+            alignItems: 'center',
+            flexDirection: 'column',
+            backgroundColor: '#1c2228',
+        },
+        image: {
+            width: 250,
+            height: 375,
+            borderRadius: 10,
+            marginBottom: 10,
+        },
+        text: {
+            color: 'white',
+            textAlign: 'left',
+            marginBottom: 10,
+            fontSize: 18
+        },
+        info: {
+            paddingTop: 20
+        },
+        bold: {
+            fontWeight: 'bold',
+            fontSize: 20
+
+        }
+    })
     if (loading) {
         return (
-            <Text>
-                Идет загрузка
-            </Text>
+            <View style={styles.main}>
+                <ActivityIndicator size="large" color="#91c8f6"/>
+            </View>
         )
     }
     if (error) {
         return (
-            <View>
+            <View style={styles.main}>
                 <Text>{error}</Text>
             </View>)
     }
     return (
-        <View>
-            <View>
+        <ScrollView>
+            <View style={styles.main}>
                 <View>
-                    <Image style={{
-                        width: 100,
-                        height: 100
-                    }
-                    }
+                    <Image style={styles.image}
                            source={
                                {uri: src}
                            }/>
                 </View>
-                <View>
-                    <Text>{movie?.title}</Text>
+                <View style={styles.info}>
+                    <Text style={{...styles.text, ...styles.bold}}>{movie?.title}</Text>
                     {/*<Trailer style={padding} witdh="560" height="315" moviePath={movie.treilerId}*/}
                     {/*         title="YouTube video player"/>*/}
                     {/*<ReactStars count={10} value={movie.vote_average} size={50} edit={false} half={true}*/}
                     {/*            color2={color}/>*/}
-                    <Text>Raiting: {movie?.vote_average}</Text>
-                    <Text>Relese: {movie?.release_date}</Text>
-                    <Text>Overview:{movie?.overview}</Text>
+                    <Text style={{...styles.text, color: ratingColor}}><Text style={styles.bold}>Rating:</Text> {movie?.vote_average}</Text>
+                    <Text style={styles.text}><Text style={styles.bold}>Release:</Text> {movie?.release_date}</Text>
+                    <Text style={styles.text}><Text style={styles.bold}>Overview:</Text> {movie?.overview}</Text>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 
 };
