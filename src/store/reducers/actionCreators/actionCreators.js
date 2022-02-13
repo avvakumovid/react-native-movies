@@ -1,5 +1,7 @@
-import * as MovieActionCreator from './movieActionCreators'
+import * as MovieActionCreators from './movieActionCreators'
+import * as UserActionCreators from './userActionCreators'
 
 export default {
-    ...MovieActionCreator,
+    ...MovieActionCreators,
+    ...UserActionCreators
 }

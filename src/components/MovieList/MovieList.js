@@ -20,11 +20,11 @@ const MovieList = ({route, navigation}) => {
     } = useSelector(state => state.movie)
     const {fetchMoviesByGenreId, setCurrentPage, addMoviesByGenreId} = useAction()
     const [genreId, setGenreId] = useState(parseInt(id))
-    const [text, setText] = useState('Start')
     const [page, setPage] = useState(1)
-    const [list, setList] = useState(movies)
+    const [position, setPosition] = useState(0)
     useEffect(() => {
         fetchMoviesByGenreId(page, genreId)
+
     }, [])
     const movieList = () => {
         return movies.map(m => {
@@ -32,7 +32,7 @@ const MovieList = ({route, navigation}) => {
             return (
                 <MovieListItem src={src} title={m.title} id={m.id} overview={m.overview} key={m.id}
                                voteAverage={m.vote_average} releaseDate={m.release_date} _id={m._id}
-                               navigation={navigation}/>
+                               navigation={navigation} position={position} setPosition={setPosition}/>
             )
         })
     }
@@ -62,6 +62,8 @@ const MovieList = ({route, navigation}) => {
             </View>)
     }
     const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+        // TODO: Сделать сохранение позиции скрола
+        // setPosition(contentOffset.y)
         const paddingToBottom = 20;
         return layoutMeasurement.height + contentOffset.y >=
             contentSize.height - paddingToBottom;
@@ -69,10 +71,10 @@ const MovieList = ({route, navigation}) => {
 
     return (
         <ScrollView
+            contentOffset={{x:0, y: position}}
             onScroll={({nativeEvent}) => {
                 if (isCloseToBottom(nativeEvent)) {
                     const nextPage = page + 1;
-                    console.log(nextPage)
                     if (totalPages >= nextPage) {
                         setPage(nextPage)
                         addMoviesByGenreId(nextPage, genreId)

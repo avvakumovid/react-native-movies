@@ -34,11 +34,11 @@ export class Api {
         }
     }
 
-    static async Auth() {
+    static async Auth(token) {
         try {
             const response = await axios.get('https://avvakumov-movies-backend.herokuapp.com/auth/auth', {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${token}`
                 }
             })
             return response.data
@@ -47,7 +47,7 @@ export class Api {
         }
     }
 
-    static async Registartion(username, password) {
+    static async Registration(username, password) {
         try {
             const response = await axios.post('https://avvakumov-movies-backend.herokuapp.com/auth/registration', {
                 username,

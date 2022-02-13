@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Image, ScrollView, StyleSheet, Text, View, Dimensions} from 'react-native';
 import {useAction} from '../../hooks/useAction';
 import {useSelector} from 'react-redux';
 import {getRatingColor} from '../../services/RitingColor/ratingColor';
@@ -20,11 +20,11 @@ const Detail = ({route, navigation}) => {
     let [src, setSrc] = useState('')
     useEffect(() => {
         if (movie) {
-            // setColor(getRaitingColor(movie.vote_average))
             setSrc(`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`)
         }
     }, [movie])
     const ratingColor = getRatingColor(movie?.vote_average)
+    const windowHeight = Dimensions.get('window').height;
     const styles = StyleSheet.create({
         main: {
             padding: 40,
@@ -32,6 +32,7 @@ const Detail = ({route, navigation}) => {
             alignItems: 'center',
             flexDirection: 'column',
             backgroundColor: '#1c2228',
+            minHeight: windowHeight
         },
         image: {
             width: 250,
