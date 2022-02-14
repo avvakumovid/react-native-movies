@@ -2,7 +2,7 @@ const AUTH_USER = 'AUTH_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
 const FETCH_WATCH_LIST_SUCCESS = 'FETCH_WATCH_LIST_SUCCESS'
 const FETCH_WATCH_LIST_ERROR = 'FETCH_WATCH_LIST_ERROR'
-const LOAD = 'LOAD'
+const LOAD_WATCH_LIST = 'LOAD_WATCH_LIST'
 
 
 const initialState = {
@@ -16,6 +16,7 @@ const initialState = {
         username: '',
         watchlist: []
     },
+    watchlist: [],
 }
 
 const userReducer = (state = initialState, action) => {
@@ -28,7 +29,7 @@ const userReducer = (state = initialState, action) => {
             return {...state, loading: false, watchlist: action.payload}
         case FETCH_WATCH_LIST_ERROR:
             return {...state, loading: false, error: action.payload}
-        case LOAD:
+        case LOAD_WATCH_LIST:
             return {...state, loading: true, error: null}
         default:
             return state

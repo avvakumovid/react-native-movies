@@ -4,7 +4,7 @@ const AUTH_USER = 'AUTH_USER'
 const LOGOUT_USER = 'LOGOUT_USER'
 const FETCH_WATCH_LIST_SUCCESS = 'FETCH_WATCH_LIST_SUCCESS'
 const FETCH_WATCH_LIST_ERROR = 'FETCH_WATCH_LIST_ERROR'
-const LOAD = 'LOAD'
+const LOAD_WATCH_LIST = 'LOAD_WATCH_LIST'
 
     export const loginAction = (username, password) => {
     return async (dispatch) => {
@@ -26,13 +26,13 @@ export const authAction = () => {
 export const logoutAction = () => {
     return async (dispatch) => {
         dispatch({type: LOGOUT_USER})
-        localStorage.removeItem('token')
     }
 }
 
 export const fetchWatchList = (token) => {
     return async (dispatch) => {
-        dispatch({type: LOAD})
+        console.log('fetchWatchList')
+        dispatch({type: LOAD_WATCH_LIST})
         const response = await Api.FetchWatchList(token)
         if (response) {
             const watchList = response.data

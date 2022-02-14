@@ -15,7 +15,7 @@ const Login = () => {
             paddingBottom: 20,
             flex: 1,
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'flex-start',
             flexDirection: 'column',
             backgroundColor: '#1c2228'
         },

@@ -67,6 +67,7 @@ export class Api {
                         Authorization: `Bearer ${token}`
                     }
                 })
+            console.log('watchlist',response)
             return response
         }catch (e) {
             console.log(e)

@@ -8,4 +8,7 @@ const reducers = combineReducers({
     user: userReducer
 })
 
+
+
 export const store = createStore(reducers, applyMiddleware(thunk))
+window.store = store
