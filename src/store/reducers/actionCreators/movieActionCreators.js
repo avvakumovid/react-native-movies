@@ -2,6 +2,8 @@ import axios from 'axios';
 import {Api} from '../../../API/api';
 
 const LOAD = 'LOAD'
+const LOAD_MOVIE_LIST = 'LOAD'
+const LOAD_MOVIE = 'LOAD_MOVIE'
 const FETCH_GENRE_SUCCESS = 'FETCH_GENRE_SUCCESS'
 const FETCH_GENRE_ERROR = 'FETCH_GENRE_ERROR'
 const FETCH_MOVIES_BY_GENRE = 'FETCH_MOVIES_BY_GENRE'
@@ -28,7 +30,7 @@ export const fetchGenre = () => {
 export const fetchMoviesByGenreId = (page , id) => {
     return async (dispatch) => {
         try {
-            dispatch({type: LOAD})
+            dispatch({type: LOAD_MOVIE_LIST})
             let movies = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/movies', {
                 params: {
                     page: page,
@@ -79,7 +81,7 @@ export const fetchMovieById = (id) => {
                 dispatch({type: FETCH_MOVIE_BY_ID, payload: {}})
                 return
             }
-            dispatch({type: LOAD})
+            dispatch({type: LOAD_MOVIE})
             let movie = await axios.get(`https://avvakumov-movies-backend.herokuapp.com/api/movie/${id}`)
             // let treilerId = await Api.FetchMovieTrailer(movie.data.id)
             // let payload = {...movie.data, treilerId: treilerId}

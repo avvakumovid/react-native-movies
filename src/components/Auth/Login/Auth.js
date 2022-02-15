@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
-import {Button, Text, TextInput, View, StyleSheet} from 'react-native'
-import {useAction} from '../../../hooks/useAction';
+import {Button, StyleSheet, TextInput, View} from 'react-native'
 
 
-const Login = () => {
+const Auth = ({action, title}) => {
 
-    const {loginAction} = useAction()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [login, setLogin] = useState('LOGIN')
     const styles = StyleSheet.create({
         main: {
             paddingTop: 40,
@@ -33,7 +30,6 @@ const Login = () => {
 
     return (
         <View style={styles.main}>
-
             <TextInput
                 style={styles.input}
                 onChangeText={setUsername}
@@ -50,10 +46,10 @@ const Login = () => {
             <Button
                 color='#91c8f6'
                 onPress={()=>{
-                loginAction(username, password)
-            }} title={'Press'}/>
+                action(username, password)
+            }} title={title}/>
         </View>
     );
 };
 
-export default Login;
+export default Auth;

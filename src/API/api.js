@@ -42,7 +42,7 @@ export class Api {
             })
             return response.data
         } catch (e) {
-            localStorage.removeItem('token')
+
         }
     }
 

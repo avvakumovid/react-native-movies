@@ -51,7 +51,6 @@ const MovieListItem = (
             height: 30
         }
     })
-
     const ratingColor = getRatingColor(voteAverage)
     return (
         <TouchableOpacity

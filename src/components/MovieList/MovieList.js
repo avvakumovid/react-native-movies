@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {ScrollView, Text, View, ActivityIndicator, StyleSheet} from 'react-native';
 import {useAction} from '../../hooks/useAction';
 import {useSelector} from 'react-redux';
@@ -7,7 +7,7 @@ import MovieListItem from './MovieListItem';
 const MovieList = ({route, navigation}) => {
     let {id} = route.params
     if (!id) {
-        id = '2';
+        id = '28';
     }
     const {
         movies,
@@ -23,10 +23,16 @@ const MovieList = ({route, navigation}) => {
     const [page, setPage] = useState(1)
     const [position, setPosition] = useState(0)
     useEffect(() => {
-        fetchMoviesByGenreId(page, genreId)
-
+        fetchMoviesByGenreId(page, genreId);
     }, [])
-    const movieList = () => {
+    const scrollRef = useRef()
+    const onPressTouch = (y) => {
+        scrollRef.current?.scrollTo({
+            y: y,
+            animated: true,
+        });
+    }
+    const createMovieList = () => {
         return movies.map(m => {
             let src = 'https://image.tmdb.org/t/p/w500/' + m.poster_path
             return (
@@ -36,6 +42,7 @@ const MovieList = ({route, navigation}) => {
             )
         })
     }
+    const movieList = createMovieList()
 
     const styles = StyleSheet.create({
         main: {
@@ -62,8 +69,6 @@ const MovieList = ({route, navigation}) => {
             </View>)
     }
     const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-        // TODO: Сделать сохранение позиции скрола
-        // setPosition(contentOffset.y)
         const paddingToBottom = 20;
         return layoutMeasurement.height + contentOffset.y >=
             contentSize.height - paddingToBottom;
@@ -71,7 +76,7 @@ const MovieList = ({route, navigation}) => {
 
     return (
         <ScrollView
-            contentOffset={{x:0, y: position}}
+            ref={scrollRef}
             onScroll={({nativeEvent}) => {
                 if (isCloseToBottom(nativeEvent)) {
                     const nextPage = page + 1;
@@ -84,10 +89,9 @@ const MovieList = ({route, navigation}) => {
 
                 }
             }}
-            scrollEventThrottle={400}
         >
             <View style={styles.main}>
-                {movieList()}
+                {movieList}
                 {adding && <ActivityIndicator size="large" color="#91c8f6"/>}
             </View>
         </ScrollView>

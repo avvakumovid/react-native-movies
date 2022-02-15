@@ -6,6 +6,7 @@ import {getRatingColor} from '../../services/RitingColor/ratingColor';
 
 
 
+
 const Detail = ({route, navigation}) => {
     let {id} = route.params;
     let {fetchMovieById, resetMovie} = useAction()
@@ -15,9 +16,8 @@ const Detail = ({route, navigation}) => {
             resetMovie()
         }
     }, [])
-    let {loading, error, movie} = useSelector(state => state.movie)
-    let [color, setColor] = useState('')
-    let [src, setSrc] = useState('')
+    let {loadingMovie, error, movie} = useSelector(state => state.movie)
+    let [src, setSrc] = useState('../../../assets/load.svg')
     useEffect(() => {
         if (movie) {
             setSrc(`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`)
@@ -55,7 +55,7 @@ const Detail = ({route, navigation}) => {
 
         }
     })
-    if (loading) {
+    if (loadingMovie) {
         return (
             <View style={styles.main}>
                 <ActivityIndicator size="large" color="#91c8f6"/>

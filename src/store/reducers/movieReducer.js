@@ -1,4 +1,6 @@
 const LOAD = 'LOAD'
+const LOAD_MOVIE = 'LOAD_MOVIE'
+const LOAD_MOVIE_LIST = 'LOAD_MOVIE_LIST'
 const ADDING = 'ADDING'
 const FETCH_GENRE_SUCCESS = 'FETCH_GENRE_SUCCESS'
 const FETCH_GENRE_ERROR = 'FETCH_GENRE_ERROR'
@@ -20,11 +22,16 @@ const initialState = {
     movie: null,
     movieTreilerId: '',
     currentPage: 1,
-    adding: false
+    adding: false,
+    loadingMovie: true
 }
 export const movieReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD:
+            return {...state, loading: true, error: null}
+        case LOAD_MOVIE:
+            return {...state, loadingMovie: true, error: null}
+        case LOAD_MOVIE_LIST:
             return {...state, loading: true, error: null}
         case FETCH_GENRE_SUCCESS:
             return {...state, loading: false, genre: action.payload}
@@ -49,11 +56,11 @@ export const movieReducer = (state = initialState, action) => {
         case ADDING:
             return {...state, adding: true, error: null}
         case FETCH_MOVIE_BY_ID:
-            return {...state, loading: false, movie: action.payload}
+            return {...state, loadingMovie: false, movie: action.payload}
         case FETCH_MOVIE_TREILER_ID:
             return {...state, movieTreilerId: action.payload}
         case RESET_MOVIE:
-            return {...state, movie: []}
+            return {...state, movie: [], loadingMovie: true}
         case SET_CURRENT_PAGE:
             return {...state, currentPage: action.payload}
         default:

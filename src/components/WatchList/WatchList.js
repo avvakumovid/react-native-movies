@@ -11,7 +11,7 @@ const WatchList = ({route, navigation}) => {
     useEffect(() => {
         fetchWatchList(token)
     }, [])
-    const createMovieList = () => {
+    const createWatchList = () => {
         return watchlist.map(m => {
             let src = 'https://image.tmdb.org/t/p/w500/' + m.poster_path
             return (
@@ -21,7 +21,7 @@ const WatchList = ({route, navigation}) => {
             )
         })
     }
-    const movieList = createMovieList()
+    const watchList = createWatchList()
 
     const styles = StyleSheet.create({
         main: {
@@ -47,18 +47,11 @@ const WatchList = ({route, navigation}) => {
                 <Text>{error}</Text>
             </View>)
     }
-    const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
-        // TODO: Сделать сохранение позиции скрола
-        // setPosition(contentOffset.y)
-        const paddingToBottom = 20;
-        return layoutMeasurement.height + contentOffset.y >=
-            contentSize.height - paddingToBottom;
-    };
 
     return (
         <ScrollView>
             <View style={styles.main}>
-                {movieList}
+                {watchList}
             </View>
         </ScrollView>
     );
