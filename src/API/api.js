@@ -18,7 +18,6 @@ export class Api {
     }
 
     static async Test(id) {
-        console.log(id)
         return id
     }
 
@@ -67,7 +66,6 @@ export class Api {
                         Authorization: `Bearer ${token}`
                     }
                 })
-            console.log('watchlist',response)
             return response
         }catch (e) {
             console.log(e)

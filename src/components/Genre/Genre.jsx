@@ -20,7 +20,7 @@ const Genre = ({navigation}) => {
             width: 250,
             height: 375,
             borderRadius: 10,
-           marginBottom: 10
+            marginBottom: 10
         },
         main: {
             paddingTop: 40,

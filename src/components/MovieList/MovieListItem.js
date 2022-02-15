@@ -1,6 +1,9 @@
 import React from 'react';
-import {Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Image, Text, TouchableOpacity, StyleSheet, Button, View} from 'react-native';
 import {getRatingColor} from '../../services/RitingColor/ratingColor';
+import addBookmark from '../../../assets/icons/addBookmark.png'
+import {Api} from '../../API/api';
+import {useSelector} from 'react-redux';
 
 
 const MovieListItem = (
@@ -15,6 +18,7 @@ const MovieListItem = (
         _id,
         ...props
     }) => {
+    const {currentUser} = useSelector(state => state.user)
     const style = StyleSheet.create({
         item: {
             borderColor: '#91c8f6',
@@ -27,9 +31,10 @@ const MovieListItem = (
         text: {
             color: 'white',
             fontSize: 20,
-            marginBottom: 10,
-            width: 250,
-            textAlign: 'center'
+            textAlign: 'center',
+            flexWrap: 'wrap',
+            maxWidth: 250,
+            width: 'auto'
         },
         image: {
             width: 250,
@@ -37,6 +42,13 @@ const MovieListItem = (
             borderTopLeftRadius: 10,
             borderTopRightRadius: 10,
             marginBottom: 10
+        },
+        appButtonContainer: {
+            padding: 5,
+        },
+        icon: {
+            width: 30,
+            height: 30
         }
     })
 
@@ -54,8 +66,17 @@ const MovieListItem = (
                 source={
                     {uri: src}
                 }/>
-            <Text style={style.text}>{title}</Text>
-            <Text style={{...style.text, color: ratingColor}}>Rating: {voteAverage}</Text>
+                <Text style={style.text}>{title}</Text>
+            <View style={{padding: 10, width: 250, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <Text style={{...style.text, color: ratingColor}}>Rating: {voteAverage}</Text>
+                <TouchableOpacity
+                    style={style.appButtonContainer}
+                    onPress={() => {
+                       Api.AddMovieToWatchList(currentUser.id, _id)
+                    }}>
+                    <Image style={style.icon}
+                           source={addBookmark}/>
+                </TouchableOpacity></View>
         </TouchableOpacity>
     );
 };
