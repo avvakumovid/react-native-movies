@@ -15,14 +15,13 @@ const WatchList = ({route, navigation}) => {
         return watchlist.map(m => {
             let src = 'https://image.tmdb.org/t/p/w500/' + m.poster_path
             return (
-                <WatchListItem src={src} title={m.title} id={m.id} overview={m.overview} key={m.id}
+                <WatchListItem src={src} title={m.title} id={m.id} overview={m.overview}
                                voteAverage={m.vote_average} releaseDate={m.release_date} _id={m._id}
-                               navigation={navigation}/>
+                               navigation={navigation} currentUser={currentUser} token={token}/>
             )
         })
     }
     const movieList = createMovieList()
-
 
     const styles = StyleSheet.create({
         main: {

@@ -41,9 +41,9 @@ export const fetchWatchList = (token) => {
     }
 }
 
-export const deleteFromWatchList = (userid, movieid, token) => {
+export const deleteFromWatchList = (userid, movieId, token) => {
     return async (dispatch) => {
-        await Api.DeleteMovieFromWatchList(userid, movieid)
+        await Api.DeleteMovieFromWatchList(userid, movieId)
         const response = await Api.FetchWatchList(token)
         if (response) {
             const watchList = response.data
