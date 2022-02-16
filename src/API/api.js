@@ -1,4 +1,9 @@
 import axios from 'axios';
+import {
+    addMoviesByGenreId, fetchGenre,
+    fetchMovieById,
+    fetchMoviesByGenreId
+} from '../store/reducers/actionCreators/movieActionCreators';
 
 export class Api {
     static async FetchMovieTrailer(id) {
@@ -92,4 +97,48 @@ export class Api {
         let response = await axios.delete(`https://avvakumov-movies-backend.herokuapp.com/api/user/delete?userId=${userId}&movieId=${movieId}`)
         return response
     }
+
+    static async FetchMovieById(id){
+        try {
+            const movie =  await axios.get(`https://avvakumov-movies-backend.herokuapp.com/api/movie/${id}`)
+            return movie
+        }catch (e) {
+            console.log(e.data.message)
+        }
+    }
+
+    static async AddMoviesByGenreId(page, id){
+        try {
+            const movies =  await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/movies', {
+                params: {
+                    page: page,
+                    genreId: id
+                }})
+            return movies
+        }catch (e) {
+            console.log(e.data.message)
+        }
+    }
+    static async FetchMoviesByGenreId(page, id){
+        try {
+            const movies = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/movies', {
+                params: {
+                    page: page,
+                    genreId: id
+                }
+            })
+            return movies
+        }catch (e) {
+            console.log(e.data.message)
+        }
+    }
+static async FetchGenres(){
+        try {
+            const genres = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/genres')
+            return genres
+        }catch (e) {
+            console.log(e.data.message)
+        }
+    }
+
 }

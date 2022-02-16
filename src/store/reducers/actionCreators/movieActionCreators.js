@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {Api} from '../../../API/api';
 
 const LOAD = 'LOAD'
@@ -19,7 +18,7 @@ export const fetchGenre = () => {
         try {
             dispatch({type: LOAD})
             // let genres = await axios.get('http://localhost:5000/api/genres')
-            let genres = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/genres')
+            let genres = await Api.FetchGenres()
             dispatch({type: FETCH_GENRE_SUCCESS, payload: genres.data})
         } catch (e) {
             dispatch({type: FETCH_GENRE_ERROR, payload: 'Ошибка при загруке жанров'})
@@ -31,12 +30,7 @@ export const fetchMoviesByGenreId = (page , id) => {
     return async (dispatch) => {
         try {
             dispatch({type: LOAD_MOVIE_LIST})
-            let movies = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/movies', {
-                params: {
-                    page: page,
-                    genreId: id
-                }
-            })
+            let movies = await Api.FetchMoviesByGenreId(page, id)
             dispatch({
                 type: FETCH_MOVIES_BY_GENRE,
                 payload: {
@@ -50,16 +44,12 @@ export const fetchMoviesByGenreId = (page , id) => {
         }
     }
 }
+
 export const addMoviesByGenreId = (page , id) => {
     return async (dispatch) => {
         try {
             dispatch({type: ADDING})
-            let movies = await axios.get('https://avvakumov-movies-backend.herokuapp.com/api/movies', {
-                params: {
-                    page: page,
-                    genreId: id
-                }
-            })
+            let movies = await Api.AddMoviesByGenreId(page, id)
             dispatch({
                 type: ADD_MOVIES_BY_GENRE,
                 payload: {
@@ -82,11 +72,10 @@ export const fetchMovieById = (id) => {
                 return
             }
             dispatch({type: LOAD_MOVIE})
-            let movie = await axios.get(`https://avvakumov-movies-backend.herokuapp.com/api/movie/${id}`)
+            let movie = await Api.FetchMovieById(id)
             // let treilerId = await Api.FetchMovieTrailer(movie.data.id)
             // let payload = {...movie.data, treilerId: treilerId}
             dispatch({type: FETCH_MOVIE_BY_ID, payload: movie.data})
-
         } catch (e) {
             dispatch({type: FETCH_GENRE_ERROR, payload: 'Ошибка при загруке фильма'})
         }
