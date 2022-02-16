@@ -32,9 +32,12 @@ export class Api {
                 username,
                 password
             })
-            return response.data
+            return response
+
         } catch (e) {
-            alert(e.response.data.message)
+            // alert(e.response.data.message)
+            return e.response
+
         }
     }
 
@@ -57,9 +60,9 @@ export class Api {
                 username,
                 password
             })
-            alert('Пользователь создан')
+            return response.data
         } catch (e) {
-            alert(e.response.data.message)
+            return e.response.data
         }
     }
 

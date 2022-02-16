@@ -62,12 +62,12 @@ const Detail = ({route, navigation}) => {
             </View>
         )
     }
-    if (error) {
-        return (
-            <View style={styles.main}>
-                <Text>{error}</Text>
-            </View>)
-    }
+    // if (error) {
+    //     return (
+    //         <View style={styles.main}>
+    //             <Text>{error}</Text>
+    //         </View>)
+    // }
     return (
         <ScrollView>
             <View style={styles.main}>

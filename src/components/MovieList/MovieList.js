@@ -62,12 +62,12 @@ const MovieList = ({route, navigation}) => {
                 <ActivityIndicator size="large" color="#91c8f6"/>
             </View>)
     }
-    if (error) {
-        return (
-            <View style={styles.main}>
-                <Text>{error}</Text>
-            </View>)
-    }
+    // if (error) {
+    //     return (
+    //         <View style={styles.main}>
+    //             <Text>{error}</Text>
+    //         </View>)
+    // }
     const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
         const paddingToBottom = 20;
         return layoutMeasurement.height + contentOffset.y >=

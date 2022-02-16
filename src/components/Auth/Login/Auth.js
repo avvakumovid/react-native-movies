@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {Button, StyleSheet, TextInput, View} from 'react-native'
+import {ActivityIndicator, Button, StyleSheet, Text, TextInput, View} from 'react-native'
+import {useSelector} from 'react-redux';
 
 
 const Auth = ({action, title}) => {
-
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const {loading, error} = useSelector(state => state.user)
     const styles = StyleSheet.create({
         main: {
             paddingTop: 40,
@@ -34,22 +35,25 @@ const Auth = ({action, title}) => {
                 style={styles.input}
                 onChangeText={setUsername}
                 value={username}
-                placeholder='Username'
+                placeholder="Username"
             />
             <TextInput
                 style={styles.input}
                 onChangeText={setPassword}
                 value={password}
-                placeholder='Password'
+                placeholder="Password"
                 secureTextEntry={true}
             />
             <Button
-                color='#91c8f6'
-                onPress={()=>{
-                action(username, password)
-            }} title={title}/>
-        </View>
-    );
+                color="#91c8f6"
+                onPress={() => {
+                    action(username, password)
+                }} title={title}
+                />
+
+            {loading && <ActivityIndicator style={{marginTop: 10}} size="large" color="#91c8f6"/>}
+            <Text style={{color: 'red', marginTop: 10, fontSize: 20}}>{error}</Text>
+        </View>)
 };
 
 export default Auth;
