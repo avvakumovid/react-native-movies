@@ -29,14 +29,14 @@ const Genre = ({navigation}) => {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
-            backgroundColor: '#1c2228'
+            backgroundColor: '#232a31'
         },
         text: {
             color: 'white',
             fontSize: 30
         },
         item: {
-            backgroundColor: '#1c2228',
+            backgroundColor: '#232a31',
             alignItems: 'center',
             marginBottom: 30
         }

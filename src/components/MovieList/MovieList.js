@@ -52,7 +52,7 @@ const MovieList = ({route, navigation}) => {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
-            backgroundColor: '#1c2228'
+            backgroundColor: '#232a31'
         }
     })
 

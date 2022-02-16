@@ -31,7 +31,7 @@ const Detail = ({route, navigation}) => {
             flex: 1,
             alignItems: 'center',
             flexDirection: 'column',
-            backgroundColor: '#1c2228',
+            backgroundColor: '#232a31',
             minHeight: windowHeight
         },
         image: {

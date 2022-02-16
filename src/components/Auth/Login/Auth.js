@@ -14,7 +14,7 @@ const Auth = ({action, title}) => {
             alignItems: 'center',
             justifyContent: 'flex-start',
             flexDirection: 'column',
-            backgroundColor: '#1c2228'
+            backgroundColor: '#232a31'
         },
         input: {
             marginBottom: 20,
